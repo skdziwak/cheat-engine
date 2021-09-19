@@ -26,7 +26,7 @@ pub fn read_process_memory_u64(handle: HANDLE, address: u64) -> u64 {
     unsafe {
         let mut result: u64 = 0;
         let ptr: *mut u64 = &mut result;
-        extern_api::ReadProcessMemory(handle, address as POINTER, ptr as POINTER, 4);
+        extern_api::ReadProcessMemory(handle, address as POINTER, ptr as POINTER, 8);
         return result;
     }
 }

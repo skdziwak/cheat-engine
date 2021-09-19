@@ -24,11 +24,11 @@ pub fn find_base_address<S: Into<String>>(pid: u32, name: S) -> Result<u64, Erro
     Err(Error(format!("Memory region {} not found.", name)))
 }
 
-pub fn follow(handle: HANDLE, base: u64, offsets: Vec<u64>) -> u64 {
-    let mut ptr: u64 = base;
+pub fn follow(handle: &HANDLE, base: &u64, offsets: &Vec<u64>) -> u64 {
+    let mut ptr: u64 = base.clone();
     for offset in offsets {
-        ptr = read_process_memory_u64(handle, ptr);
-        ptr += offset;
+        ptr = read_process_memory_u64(handle.clone(), ptr);
+        ptr = ptr + offset;
     }
     return ptr;
 }
