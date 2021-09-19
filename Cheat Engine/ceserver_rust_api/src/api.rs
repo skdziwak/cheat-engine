@@ -1,6 +1,6 @@
 use crate::api::extern_api::{HANDLE, DWORD, POINTER};
 
-mod extern_api;
+pub mod extern_api;
 
 pub fn open_process(pid: DWORD) -> HANDLE {
     unsafe {

@@ -2,6 +2,7 @@ pub type DWORD = u32;
 pub type HANDLE = u32;
 pub type WORD = u16;
 pub type POINTER = *mut i32;
+const NULL: u64 = 0;
 
 #[link(name = "ceserver")]
 extern {
