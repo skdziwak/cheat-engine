@@ -1,6 +1,0 @@
-[build]
-rustflags = [
-    "-C", "link-arg=-lz",
-    "-C", "link-arg=-ldl",
-    "-C", "link-arg=-pthread"
-]

@@ -2,11 +2,7 @@ use cc;
 use std::path::Path;
 
 fn main() {
-    println!("cargo:rustc-link-lib=-lz");
-    println!("cargo:rustc-link-lib=-ldl");
-    println!("cargo:rustc-link-lib=-pthread");
-
-    let cflags = "-g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -Doff64_t=__off64_t";
+    let cflags = "-g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -Doff64_t=__off64_t -DSHARED_LIBRARY";
     let cflags = cflags.split(" ");
 
     let mut sources: Vec<String> = Vec::new();
@@ -31,4 +27,8 @@ fn main() {
     }
 
     build.compile("ceserver");
+
+    println!("cargo:rustc-link-lib=z");
+    println!("cargo:rustc-link-lib=dl");
+    println!("cargo:rustc-link-lib=pthread");
 }
