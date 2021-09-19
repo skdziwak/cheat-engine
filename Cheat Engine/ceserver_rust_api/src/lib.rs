@@ -12,8 +12,8 @@ mod tests {
     #[test]
     fn test() {
         let pid = 34390;
-        let handle = open_process(34390);
-        let base = find_base_address(pid, "libhl.so");
+        let handle = open_process(&pid);
+        let base = find_base_address(&pid, "libhl.so");
         let offset: u64 = 0x0027C780;
         let offsets: Vec<u64> = vec![0x860, 0x0, 0x68, 0x80, 0xE8, 0x8, 0x48];
         if base.is_ok() {
@@ -22,7 +22,7 @@ mod tests {
             let newbase = base + offset;
 
             let gold_p: u64 = follow(&handle, &newbase, &offsets);
-            let gold = read_process_memory_i32(handle, gold_p);
+            let gold = read_process_memory_i32(&handle, &gold_p);
             println!("Gold: {}", gold);
         } else {
             eprintln!("Error: {}", base.unwrap_err().0)

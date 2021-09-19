@@ -3,7 +3,7 @@ use crate::errors::Error;
 use crate::api::read_process_memory_u64;
 use crate::api::extern_api::HANDLE;
 
-pub fn find_base_address<S: Into<String>>(pid: u32, name: S) -> Result<u64, Error> {
+pub fn find_base_address<S: Into<String>>(pid: &u32, name: S) -> Result<u64, Error> {
     let name = name.into();
     let path = format!("/proc/{}/maps", pid);
     let maps = read_to_string(path)?;
@@ -27,7 +27,7 @@ pub fn find_base_address<S: Into<String>>(pid: u32, name: S) -> Result<u64, Erro
 pub fn follow(handle: &HANDLE, base: &u64, offsets: &Vec<u64>) -> u64 {
     let mut ptr: u64 = base.clone();
     for offset in offsets {
-        ptr = read_process_memory_u64(handle.clone(), ptr);
+        ptr = read_process_memory_u64(handle, &ptr);
         ptr = ptr + offset;
     }
     return ptr;
